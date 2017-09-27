@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="TpJPAPU" transaction-type="RESOURCE_LOCAL">
+    <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+    <class>entities.Bailleur</class>
+    <class>entities.Fournisseur</class>
+    <class>entities.Programme</class>
+    <class>entities.Projet</class>
+    <class>entities.IndicateurPerformance</class>
+    <class>entities.IndicateurQualitatif</class>
+    <class>entities.IndicateurQuantitatif</class>
+    <class>entities.Livrable</class>
+    <class>entities.Beneficiaire</class>
+    <properties>
+      <property name="javax.persistence.jdbc.url" value="jdbc:derby://localhost:1527/tpJPA"/>
+      <property name="javax.persistence.jdbc.user" value="bootcamp"/>
+      <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.ClientDriver"/>
+      <property name="javax.persistence.jdbc.password" value="bootcamp"/>
+      <property name="javax.persistence.schema-generation.database.action" value="drop-and-create"/>
+    </properties>
+  </persistence-unit>
+</persistence>
