@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package tpjpa;
+package jpa.tpjpa;
 
-import dataProvider.BailleurProvider;
-import dataProvider.BeneficiaireProvider;
-import dataProvider.FournisseurProvider;
-import entities.Bailleur;
-import entities.Beneficiaire;
-import entities.Fournisseur;
-import entities.TypeDeBailleur;
+import jpa.dataProvider.BailleurProvider;
+import jpa.dataProvider.BeneficiaireProvider;
+import jpa.dataProvider.FournisseurProvider;
+import jpa.entities.Bailleur;
+import jpa.entities.Beneficiaire;
+import jpa.entities.Fournisseur;
+import jpa.entities.TypeDeBailleur;
 import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
-import repositories.BailleurRepository;
-import repositories.BeneficiaireRepository;
-import repositories.FournisseurRepository;
+import jpa.repositories.BailleurRepository;
+import jpa.repositories.BeneficiaireRepository;
+import jpa.repositories.FournisseurRepository;
 
 /**
  *

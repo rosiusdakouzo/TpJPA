@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dataProvider;
+package jpa.dataProvider;
 
 import java.util.LinkedList;
-import repositories.*;
+import jpa.repositories.*;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import entities.*;
+import jpa.entities.*;
 
 /**
  *
@@ -24,7 +24,7 @@ public class ProgrammeProvider {
         for (int i = 0; i < nom.length; i++) {
             Bailleur bailleur = new Bailleur();
             bailleur.setNom(nom[i]);
-            bailleur.setTypeDeBailleur(TypeDeBailleur.privé);
+            bailleur.setTypeDeBailleur(TypeDeBailleur.prive);
             bailleurs.add(bailleur);
         }
 

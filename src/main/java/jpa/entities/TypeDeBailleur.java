@@ -3,14 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package entities;
+package jpa.entities;
 /**
  *
  * @author Rosius
  */
 public enum TypeDeBailleur {
      gouvernementales ("Gouvernementales"),
-     privé ("Privé"),
+     prive ("Prive"),
      gouvernement ("Gouvernement"),
      partenaireInternational ("Partenaire International");
     
