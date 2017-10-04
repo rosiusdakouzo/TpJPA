@@ -11,14 +11,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotNull;
 /**
  *
  * @author Rosius
  */
-@Entity
+@Entity(name="IndicateurQuantitif")
 @Table(name="tp_ indicateur_quantitatif")
 public class IndicateurQuantitatif implements Serializable {
 
@@ -28,17 +29,22 @@ public class IndicateurQuantitatif implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
+    @NotNull("La colonne nom doit etre non nulle")
     @Column(name="nom", length=45, nullable=false)
     private String nom;
     
+    @NotNull("La colonne propriete doit etre non nulle")
     @Column(name="propriete", length=45, nullable=false)
     private String propriete;
     
-    @Column(nullable=false)
+    @NotNull("La colonne valeur doit etre non nulle")
+    @Column(name="valeur", nullable=false)
     private Integer valeur;
     
     // Relation
     @ManyToOne
+    @NotNull("La colonne indicateurPerformance doit etre non nulle")
+    @JoinColumn(name="indicateurPerformance", referencedColumnName ="id")
     private IndicateurPerformance indicateurPerformance;
     
     //Getters Setters

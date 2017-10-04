@@ -5,16 +5,15 @@
  */
 package jpa.repositories;
 
-import jpa.entities.Beneficiaire;
+import jpa.entities.Personne;
 
 /**
  *
  * @author Rosius
  */
-public class BeneficiaireRepository extends BaseRepository<Beneficiaire> {
+public class PersonneRepository extends BaseRepository<Personne> {
 
-    public BeneficiaireRepository(String unitPersistence) {
-        super(unitPersistence, Beneficiaire.class);
+    public PersonneRepository(String UnitPersistence) {
+        super(UnitPersistence, Personne.class);
     }
-
 }

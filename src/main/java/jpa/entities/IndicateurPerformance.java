@@ -6,7 +6,9 @@
 package jpa.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,7 +16,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotNull;
+import javax.persistence.CascadeType;
 /**
  *
  * @author Rosius
@@ -29,30 +32,24 @@ public class IndicateurPerformance implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
-    @Column(name="libelle", length=45, nullable=false)
-    private String libelle;
-    
-    @Column(name="nature", length=45, nullable=false)
-    private String nature;
-    
-    @Column(name="valeur", length=45, nullable=false)
-    private String valeur;
-        
-    //Relations
-    @OneToMany (mappedBy = "indicateurPerformance")
-    private Collection <Programme> programmes;
+    @NotNull(message="La colonne nom doit etre non nul")
+    @Column(name="nom", length=45, nullable=false)
+    private String nom;
     
     @OneToMany (mappedBy = "indicateurPerformance")
-    private Collection <Projet> projets;
+    private List<Programme> programmes = new ArrayList<Programme>();
     
     @OneToMany (mappedBy = "indicateurPerformance")
-    private Collection <Livrable> livrables;
+    private List<Projet> projets = new ArrayList<Projet>();
     
     @OneToMany (mappedBy = "indicateurPerformance")
-    private Collection <IndicateurQualitatif> indicateurQualitatif;
+    private List<Livrable> livrables = new ArrayList<Livrable>();
     
-    @OneToMany (mappedBy = "indicateurPerformance")
-    private Collection <IndicateurQuantitatif> indicateurQuantitatif;
+    @OneToMany (cascade=CascadeType.ALL, mappedBy = "indicateurPerformance")
+    private List<IndicateurQualitatif> indicateurQualitatif = new ArrayList<IndicateurQualitatif>();
+    
+    @OneToMany (cascade=CascadeType.ALL, mappedBy = "indicateurPerformance")
+    private List<IndicateurQuantitatif> indicateurQuantitatif = new ArrayList<IndicateurQuantitatif>();
     
     //Getters et Setters
     public Integer getId() {
@@ -89,114 +86,86 @@ public class IndicateurPerformance implements Serializable {
     }
 
     /**
-     * @return the libelle
+     * @return the nom
      */
-    public String getLibelle() {
-        return libelle;
+    public String getNom() {
+        return nom;
     }
 
     /**
-     * @param libelle the libelle to set
+     * @param nom the nom to set
      */
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
-    }
-
-    /**
-     * @return the nature
-     */
-    public String getNature() {
-        return nature;
-    }
-
-    /**
-     * @param nature the nature to set
-     */
-    public void setNature(String nature) {
-        this.nature = nature;
-    }
-
-    /**
-     * @return the valeur
-     */
-    public String getValeur() {
-        return valeur;
-    }
-
-    /**
-     * @param valeur the valeur to set
-     */
-    public void setValeur(String valeur) {
-        this.valeur = valeur;
+    public void setNom(String nom) {
+        this.nom = nom;
     }
 
     /**
      * @return the programmes
      */
-    public Collection <Programme> getProgrammes() {
+    public List<Programme> getProgrammes() {
         return programmes;
     }
 
     /**
      * @param programmes the programmes to set
      */
-    public void setProgrammes(Collection <Programme> programmes) {
+    public void setProgrammes(List<Programme> programmes) {
         this.programmes = programmes;
     }
 
     /**
      * @return the projets
      */
-    public Collection <Projet> getProjets() {
+    public List<Projet> getProjets() {
         return projets;
     }
 
     /**
      * @param projets the projets to set
      */
-    public void setProjets(Collection <Projet> projets) {
+    public void setProjets(List<Projet> projets) {
         this.projets = projets;
     }
 
     /**
      * @return the livrables
      */
-    public Collection <Livrable> getLivrables() {
+    public List<Livrable> getLivrables() {
         return livrables;
     }
 
     /**
      * @param livrables the livrables to set
      */
-    public void setLivrables(Collection <Livrable> livrables) {
+    public void setLivrables(List<Livrable> livrables) {
         this.livrables = livrables;
     }
 
     /**
      * @return the indicateurQualitatif
      */
-    public Collection <IndicateurQualitatif> getIndicateurQualitatif() {
+    public List<IndicateurQualitatif> getIndicateurQualitatif() {
         return indicateurQualitatif;
     }
 
     /**
      * @param indicateurQualitatif the indicateurQualitatif to set
      */
-    public void setIndicateurQualitatif(Collection <IndicateurQualitatif> indicateurQualitatif) {
+    public void setIndicateurQualitatif(List<IndicateurQualitatif> indicateurQualitatif) {
         this.indicateurQualitatif = indicateurQualitatif;
     }
 
     /**
      * @return the indicateurQuantitatif
      */
-    public Collection <IndicateurQuantitatif> getIndicateurQuantitatif() {
+    public List<IndicateurQuantitatif> getIndicateurQuantitatif() {
         return indicateurQuantitatif;
     }
 
     /**
      * @param indicateurQuantitatif the indicateurQuantitatif to set
      */
-    public void setIndicateurQuantitatif(Collection <IndicateurQuantitatif> indicateurQuantitatif) {
+    public void setIndicateurQuantitatif(List<IndicateurQuantitatif> indicateurQuantitatif) {
         this.indicateurQuantitatif = indicateurQuantitatif;
     }
     

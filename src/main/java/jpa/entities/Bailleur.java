@@ -5,9 +5,11 @@
  */
 package jpa.entities;
 
+import com.sun.istack.internal.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
@@ -15,7 +17,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -23,17 +28,21 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name = "tp_bailleur")
-public class Bailleur implements Serializable {
-
-    //Differentes colonnes (x3)
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-
-    @Column(name = "nom", length = 45, nullable = false)
-    private String nom;
-
+@DiscriminatorValue("TP_BAILLEUR")
+@NamedQueries({
+    @NamedQuery(
+        name="Bailleur.findAll",
+            query="select bailleur from Bailleur bailleur"),
+    @NamedQuery(
+        name="Bailleur.findByName",
+            query="select bailleur from Bailleur bailleur where bailleur.nom = :nom"),
+    @NamedQuery(
+        name="Bailleur.countAll",
+            query="select count(bailleur) from Baialleur bailleur"),
+})
+public class Bailleur extends Personne {
+    
+    @NotNull(message="Le champs typeDeBailleur doit etre non null")
     @Column(name = "typeDeBailleur", nullable = false)
     @Enumerated(EnumType.ORDINAL)
     private TypeDeBailleur typeDeBailleur;
@@ -44,70 +53,6 @@ public class Bailleur implements Serializable {
 
     @ManyToMany(mappedBy = "bailleurs")
     private Collection<Projet> projets;
-
-    //Constructeur
-    //Getters et Setters
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Bailleur)) {
-            return false;
-        }
-        Bailleur other = (Bailleur) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entities.Bailleur[ id=" + id + " ]";
-    }
-
-    /**
-     * @return the name
-     */
-    public String getNom() {
-        return nom;
-    }
-
-    /**
-     * @param name the name to set
-     */
-    public void setNom(String nom) /*throws ColumnValueIsNullException */{
-       this.nom = nom;
-//        throws ColumnValueIsNullException
-//                {
-//                    if(nom.isEmpty()){
-//                        throw new ColumnValueIsNullException();
-//                    }
-//                    else{
-//                        this.nom = nom;
-//                    }
-//                }
-//            try{
-//                this.nom = nom;
-//            }
-//            catch (java.sql.SQLIntegrityConstraintViolationException e){
-//                System.out.println("Mon message d'erreur");
-//            }
-    }
 
     /**
      * @return the typeDeBailleur0

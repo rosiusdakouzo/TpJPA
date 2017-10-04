@@ -11,9 +11,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-
+import javax.validation.constraints.NotNull;
 /**
  *
  * @author Rosius
@@ -28,17 +29,21 @@ public class IndicateurQualitatif implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
+    @NotNull(message="La colonne nom doit etre non null")
     @Column(name="nom", length=45, nullable=false)
     private String nom;
     
+    @NotNull(message="La colonne propriete doit etre non nulle")
     @Column(name="propriete", length=45, nullable=false)
     private String propriete;
     
+    @NotNull(message ="La colonne valeur dppit etre non nulle")
     @Column(name="valeur", length=45, nullable=false)
     private String valeur;
     
-    //Relaiton
     @ManyToOne
+    @NotNull(message = "La colonne indicateur doit etre non null")
+    @JoinColumn(name="indicateurPerformance", referencedColumnName="id")
     private IndicateurPerformance indicateurPerformance;
     
     //Getters Setters

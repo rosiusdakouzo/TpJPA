@@ -6,13 +6,18 @@
 package jpa.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorValue;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 /**
@@ -21,98 +26,44 @@ import javax.persistence.Table;
  */
 @Entity
 @Table(name="tp_fournisseur")
-public class Fournisseur implements Serializable {
-
-    //Colonnes
-    private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Integer id;
-  
-    @Column(name="nom", length=45, nullable=false)
-    private String nom;
-
+@DiscriminatorValue("TP_FOURNISSEUR")
+public class Fournisseur extends Personne {
+    
+    @NotNull(message="Le champs programmeFournisseur doit etre non nul")
     //Relations
-    @ManyToMany (mappedBy = "fournisseurs")
-    private Collection <Programme> programmes;
+    @ManyToOne(fetch=FetchType.LAZY)
+    private ProgrammeHasFournisseur programmeHasFournisseur;
     
-    @ManyToMany (mappedBy = "fournisseurs")
-    private Collection <Projet> projets;
-    
-    //Getters et Setters
-    public Integer getId() {
-        return id;
-    }
+    @ManyToMmany(mappedBy="fournisseurs")
+    private List<Projet> projets = new ArrayList<Projet>();
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Fournisseur)) {
-            return false;
-        }
-        Fournisseur other = (Fournisseur) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entities.Fournisseur[ id=" + id + " ]";
+    /**
+     * @return the programmeHasFournisseur
+     */
+    public ProgrammeHasFournisseur getProgrammeHasFournisseur() {
+        return programmeHasFournisseur;
     }
 
     /**
-     * @return the nom
+     * @param programmeHasFournisseur the programmeHasFournisseur to set
      */
-    public String getNom() {
-        return nom;
-    }
-
-    /**
-     * @param nom the nom to set
-     */
-    public void setNom(String nom) {
-        this.nom = nom;
-    }
-
-    /**
-     * @return the programmes
-     */
-    public Collection <Programme> getProgrammes() {
-        return programmes;
-    }
-
-    /**
-     * @param programmes the programmes to set
-     */
-    public void setProgrammes(Collection <Programme> programmes) {
-        this.programmes = programmes;
+    public void setProgrammeHasFournisseur(ProgrammeHasFournisseur programmeHasFournisseur) {
+        this.programmeHasFournisseur = programmeHasFournisseur;
     }
 
     /**
      * @return the projets
      */
-    public Collection <Projet> getProjets() {
+    public List<Projet> getProjets() {
         return projets;
     }
 
     /**
      * @param projets the projets to set
      */
-    public void setProjets(Collection <Projet> projets) {
+    public void setProjets(List<Projet> projets) {
         this.projets = projets;
     }
+    
     
 }

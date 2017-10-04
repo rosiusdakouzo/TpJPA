@@ -6,10 +6,14 @@
 package jpa.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -19,12 +23,12 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-
+import javax.validation.constraints.NotNull;
 /**
  *
  * @author Rosius
  */
-@Entity
+@Entity(name="Programme")
 @Table(name="tp_programme")
 public class Programme implements Serializable {
 
@@ -34,41 +38,51 @@ public class Programme implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Integer id;
     
+    @NotNull(message="Le champs nom doit etre non nul")
     @Column(name="nom", length=45, nullable=false)
     private String nom;
     
+    @NotNull(message="Le champs objectif doit etre non nul")
     @Column(name="objectif", length=45, nullable=false)
     private String objectif;
     
+    @NotNull(message="Le champs dateDeDebut doit etre non nul")
     @Temporal(TemporalType.DATE)
     @Column(nullable=false)
     private Date dateDeDebut;
     
+    @NotNull(message="Le champs dateDeFin doit etre non nul")
     @Temporal(TemporalType.DATE)
     @Column(nullable=false)
     private Date dateDeFin;
     
+    @NotNull(message="Le champs budgetPrevisionnel doit etre non nul")
     @Column(nullable=false)
     private Integer budgetPrevisionnel;
     
+    @NotNull(message="Le champs budgetEffectif doit etre non nul")
     @Column(nullable=false)
     private Integer budgetEffectif;
    
     // Relation
-    @OneToMany (mappedBy = "programme")
-    private Collection <Projet> projets;
+    @OneToMany (cascade=CascadeType.ALL, mappedBy = "programme")
+    private List <Projet> projets = new ArrayList<Projet>();
     
-    @ManyToOne
+    @NotNull(message="Le champs indicateurPerformance doit etre non nul")
+    @ManyToOne(fetch=FetchType.LAZY)
     private IndicateurPerformance indicateurPerformance;
     
-    @ManyToMany
-    private Collection <Fournisseur> fournisseurs;
+    @NotNull(message="Le champs programmeHasBailleur doit etre non nul")
+    @ManyToOne(fetch=FetchType.LAZY)
+    private ProgrammeHasBailleur programmeHasBailleur;
     
-    @ManyToMany
-    private Collection <Bailleur> bailleurs;
+    @NotNull(message="Le champs programmeHasFournisseur doit etre non nul")
+    @ManyToOne(fetch=FetchType.LAZY)
+    private ProgrammeHasFournisseur programmeHasFournisseur;
     
-    @ManyToMany
-    private Collection <Beneficiaire> beneficiaires;
+    @NotNull(message="Le champs programmeHasBeneficiaire doit etre non nul")
+    @ManyToOne(fetch=FetchType.LAZY)
+    private ProgrammeHasBeneficiaire programmeHasBeneficiaire;
     
     //Getters Setters
     public Integer getId() {
@@ -195,67 +209,5 @@ public class Programme implements Serializable {
         return projets;
     }
 
-    /**
-     * @param projets the projets to set
-     */
-    public void setProjets(Collection <Projet> projets) {
-        this.projets = projets;
-    }
-
-    /**
-     * @return the indicateurPerformance
-     */
-    public IndicateurPerformance getIndicateurPerformance() {
-        return indicateurPerformance;
-    }
-
-    /**
-     * @param indicateurPerformance the indicateurPerformance to set
-     */
-    public void setIndicateurPerformance(IndicateurPerformance indicateurPerformance) {
-        this.indicateurPerformance = indicateurPerformance;
-    }
-
-    /**
-     * @return the fournisseurs
-     */
-    public Collection <Fournisseur> getFournisseurs() {
-        return fournisseurs;
-    }
-
-    /**
-     * @param fournisseurs the fournisseurs to set
-     */
-    public void setFournisseurs(Collection <Fournisseur> fournisseurs) {
-        this.fournisseurs = fournisseurs;
-    }
-
-    /**
-     * @return the bailleurs
-     */
-    public Collection <Bailleur> getBailleurs() {
-        return bailleurs;
-    }
-
-    /**
-     * @param bailleurs the bailleurs to set
-     */
-    public void setBailleurs(Collection <Bailleur> bailleurs) {
-        this.bailleurs = bailleurs;
-    }
-
-    /**
-     * @return the beneficiaires
-     */
-    public Collection <Beneficiaire> getBeneficiaires() {
-        return beneficiaires;
-    }
-
-    /**
-     * @param beneficiaires the beneficiaires to set
-     */
-    public void setBeneficiaires(Collection <Beneficiaire> beneficiaires) {
-        this.beneficiaires = beneficiaires;
-    }
     
 }
