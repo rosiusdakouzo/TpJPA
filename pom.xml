@@ -27,5 +27,11 @@
       <scope>test</scope>
       <type>jar</type>
     </dependency>
+    <dependency>
+      <groupId>org.glassfish</groupId>
+      <artifactId>json</artifactId>
+      <version>1.0.4</version>
+      <type>pom</type>
+    </dependency>
   </dependencies>
 </project>

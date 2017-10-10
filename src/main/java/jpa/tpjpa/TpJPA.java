@@ -80,5 +80,6 @@ public class TpJPA {
 //            System.out.println(nameBean.getNom());
 //        }
 
+    
     }    
 }
